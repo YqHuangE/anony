@@ -1,0 +1,510 @@
+﻿<!DOCTYPE html>
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Ocean4D: Generative Underwater 4D Reconstruction via Medium-Aware Video Diffusion</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ocean4D: Generative Underwater 4D Reconstruction via Medium-Aware Video Diffusion">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ocean4D: Generative Underwater 4D Reconstruction via Medium-Aware Video Diffusion">
+    <link rel="icon" type="image/png" href="fig/logo.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/fontawesome.all.min.css">
+	<link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+	<script defer src="js/fontawesome.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/synced_video_selector.js"></script>
+    <script src="js/video_comparison.js"></script>
+
+</head>
+
+  <body>
+    <br><br>
+
+  <div class="container" id="header" style="text-align: center; margin: auto; ">
+    <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block;">
+
+      <h2 class="col-md-12 text-center" id="title" style="font-size: 46px; font-weight: 800; line-height: 1.2;">
+        <b>Ocean4D</b>: Generative Underwater 4D Reconstruction via Medium-Aware Video Diffusion
+      </h2>
+
+      <br>
+
+      <!-- Authors Placeholder -->
+      <h3 style="margin-top: 20px; font-weight: 400; display: none;">
+        <a href="#" style="color: #333;" target="_blank">Author 1</a><sup style="font-size: 50%;">1</sup> &nbsp;&nbsp;
+        <a href="#" style="color: #333;" target="_blank">Author 2</a><sup style="font-size: 50%;">1</sup> &nbsp;&nbsp;
+        <a href="#" style="color: #333;" target="_blank">Author 3</a><sup style="font-size: 50%;">2</sup>
+      </h3>
+
+      <!-- Affiliations Placeholder -->
+      <h4 style="margin-top: 20px; display: none;">
+        <sup style="font-size: 50%;">1</sup>Institution 1 &nbsp;&nbsp;&nbsp;
+        <sup style="font-size: 50%;">2</sup>Institution 2
+      </h4>
+
+      <!-- Venue Placeholder -->
+      <h3 style="margin-top: 25px; color: #8e44ad; font-weight: 500; display: none;">
+        Accepted to Conference 20XX
+      </h3>
+
+      <!-- Links -->
+      <h4 style="margin-top: 25px; display: none;">
+        <a href="https://mingyangx.github.io/assets/LaVR_4D_Scene_ReRender_20260115.pdf" class="btn btn-primary" role="button" style="margin: 5px;" target="_blank">
+          <i class="fas fa-file-pdf"></i> Paper
+        </a>
+        <a href="https://arxiv.org/abs/2601.14674" class="btn btn-primary" role="button" style="margin: 5px;" target="_blank">
+          <i class="ai ai-arxiv"></i> arXiv
+        </a>
+        <!-- <a href="#" class="btn btn-primary" role="button" style="margin: 5px;">
+          <i class="fa fa-github"></i> Code
+        </a>
+        <a href="#" class="btn btn-primary" role="button" style="margin: 5px;">
+          <i class="fa fa-file-pdf-o"></i> Supplementary
+        </a>
+        <a href="#" class="btn btn-primary" role="button" style="margin: 5px;">
+          <i class="fa fa-file-image-o"></i> Poster
+        </a> -->
+      </h4>
+
+    </div>
+  </div>
+
+  <div class="container" id="hero-figure" style="max-width: 1200px; margin: 30px auto 0 auto;">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <figure style="margin: 0;">
+          <img src="fig/shoutu2.png" alt="Ocean4D teaser figure" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 100%; font-size: 16px; line-height: 1.7;">
+            <b>Ocean4D</b> addresses the problem of underwater 4D reconstruction from a monocular video. Ocean4D constructs 4D geometrically consistent conditions and performs medium-aware generation with a video diffusion model, improving cross-view consistency and visual stability under dynamic underwater media.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="overview-figure" style="max-width: 1200px; margin: 36px auto 0 auto;">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3 style="margin-bottom: 20px; font-size: 28px; font-weight: 500;">Overview of Ocean4D</h3>
+        <figure style="margin: 0;">
+          <img src="fig/f1_pipeline.png" alt="Overview of Ocean4D" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 100%; font-size: 16px; line-height: 1.7;">
+            <b>Overview of Ocean4D.</b> Given a monocular source video with camera poses, our method generates multi-view videos under target poses using a video diffusion model. We first apply <b>4D-GCC</b> to extract a 4D geometric representation and construct a geometry-consistent conditioning video by combining time-varying and time-invariant renderings to enrich cross-frame information. The resulting conditioning tokens, together with reference tokens and text tokens from a frozen text encoder, are fed into a diffusion backbone where DiT Blocks and <b>Medium-Aware Blocks</b> are interleaved (DiT Block includes Ref-DiT Block). Finally, the denoised latents are decoded to produce a high-quality target video aligned with the target camera poses and temporally consistent with the source video.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="results-figure" style="max-width: 1200px; margin: 36px auto 0 auto;">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3 style="margin-bottom: 20px; font-size: 28px; font-weight: 500;">Results on Dynamic Scene</h3>
+        <figure style="margin: 0 0 28px 0;">
+          <img src="fig/dynamic_compare_all_2.png" alt="Qualitative results on dynamic underwater scenes" style="width: 95%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 95%; font-size: 16px; line-height: 1.7;">
+            Qualitative results on dynamic underwater scenes comparing our method with TrajectoryCrafter and ReCamMaster. Red arrows highlight typical failure modes under novel views, including semantic misrecognition and hallucinations caused by insufficient geometry.
+          </figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <img src="fig/dynamic_compare_detail.png" alt="Hallucination analysis on dynamic scenes" style="width: 95%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 95%; font-size: 16px; line-height: 1.7;">
+            <b>Hallucination analysis on dynamic scenes.</b> Red boxes and arrows highlight failure cases under large viewpoint shifts and unseen regions.
+          </figcaption>
+        </figure>
+        <figure style="margin: 28px 0 28px 0;">
+          <img src="fig/mini_dynamic.png" alt="Qualitative comparison on NUSR" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 100%; font-size: 16px; line-height: 1.7;">
+            Qualitative comparison on NUSR. Red boxes highlight distractor regions with zoomed-in views. Our method achieves better reconstruction quality in both static regions and distractor regions.
+          </figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <img src="fig/mini_static.png" alt="Qualitative comparison on DRUVA" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 100%; font-size: 16px; line-height: 1.7;">
+            Qualitative comparison on DRUVA. Red boxes highlight detail regions that are strongly affected by water disturbances, including the flag in A11 and the rope in A12.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="quantitative-results" style="max-width: 1200px; margin: 36px auto 0 auto;">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3 style="margin-bottom: 20px; font-size: 28px; font-weight: 500;">Quantitative Results</h3>
+        <figure style="margin: 0;">
+          <img src="fig/T1.png" alt="Quantitative comparison on VBench metrics" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+          <figcaption style="text-align: center; margin: 14px auto 0 auto; max-width: 100%; font-size: 16px; line-height: 1.7;">
+            Quantitative comparison with state-of-the-art methods on VBench metrics.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="more-results" style="max-width: 1200px; margin: 36px auto 0 auto;">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3 style="margin-bottom: 20px; font-size: 28px; font-weight: 500;">More Results</h3>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #555;">Left: source video. Right: target video.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 1</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_1_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_1_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 2</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_2_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_2_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 3</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_3_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_3_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 4</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_4_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_4_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 5</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_5_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_5_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 6</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_6_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_6_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 7</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_7_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_7_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #e5e5e5; padding: 14px; border-radius: 10px;">
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Group 8</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Source</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/s_8_pingpong.mp4"></video>
+              </div>
+              <div>
+                <div style="margin-bottom: 8px; font-size: 14px; color: #666;">Target</div>
+                <video autoplay muted loop playsinline preload="metadata" style="width: 100%; height: auto; display: block;" src="fig/t_8_pingpong.mp4"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="abstract" style="max-width: 900px; margin: 30px auto 0 auto; display: none;">
+    <div class="row text-center">
+      <div class="col-md-10 col-md-offset-1">
+        <h3 style="font-size: 28px; font-weight: 500;">Abstract</h3>
+        <p style="text-align: left; line-height: 1.8; font-size: 17px; margin-top: 18px;">
+          This is a placeholder abstract sentence for previewing the webpage layout.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+  </script>
+      <br>
+    <!-- <br><br> -->
+
+  <div class="container" id="main" style="width:100%">
+
+
+
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2: METHOD OVERVIEW / ARCHITECTURE COMPARISON         -->
+    <!-- ============================================================ -->
+
+    <div class="row text-center" style="background-color:rgb(248, 248, 248); display: none;">
+    <br><br>
+
+      <div class="col-md-8 col-md-offset-2">
+        <h3> Proposed Paradigm vs. Baselines' </h3><br>
+  <image src="static/img/methods_overview.jpg" width=85% style="display: block; margin: auto;"></image>
+  <br>
+        <p class="text-center" style="text-align: left; display: inline-block; max-width: 85%; line-height: 1.25;">
+          <!-- <b>Architecture comparison.</b> <br> -->
+          <b>(a)</b> Non-3D(4D)-conditioned methods, e.g., <i>ReCamMaster</i>, achieve high visual quality but lack geometric awareness, leading to inconsistencies. <br><br>
+          <b>(b)</b> Conditioning on 4D point cloud renders, as in <i>Gen3C</i>, <i>TrajectoryCrafter</i>, provides consistency, but reduces quality as point clouds re-rendering is sensitive to depth estimation errors. <br><br>
+          <b>(c)</b> Our proposed architecture utilizes the implicit geometric knowledge of a pre-trained large 4D reconstruction model (LRM) to achieve both high quality and consistency.
+        </p>
+                    <br><br>
+                    <br><br>
+
+  <!-- <image src="static/img/methods_overview.jpg" width=25% style="display: block; margin: auto;"></image>
+	
+	<h5 class="text-center">
+          On real-world data, we achieve 96 FPS, and train faster than previous and concurrent methods. <br> Circle size denotes training time. All methods are trained on a single RTX 3090 GPU.
+        </h5> -->
+	
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- COMMENTED OUT SECTIONS BELOW                                 -->
+    <!-- ============================================================ -->
+
+    <!-- -->
+<!--     
+    <div class="row text-center"  style="background-color:rgb(240, 240, 240);">
+      <div class="col-md-8 col-md-offset-2">
+        <h3> Results on the Synthetic D-NeRF Dataset</h3><br>
+        <div class="text-center ">
+          <ul class="nav nav-pills center-pills">
+            <li class="method-pill-syn active" data-value="TiNeuVox"
+                onclick="selectCompVideo(this, activeScenePill_syn)"><a>TiNeuVox</a></li>
+            <li class="method-pill-syn" data-value="V4D"
+                onclick="selectCompVideo(this, activeScenePill_syn)"><a>V4D</a></li>
+            <li class="method-pill-syn" data-value="NDVG"
+                onclick="selectCompVideo(this, activeScenePill_syn)"><a>NDVG</a></li>
+            <li class="method-pill-syn" data-value="HexPlane"
+                onclick="selectCompVideo(this, activeScenePill_syn)"><a>HexPlane</a></li>
+            <li class="method-pill-syn" data-value="K-Planes"
+                onclick="selectCompVideo(this, activeScenePill_syn)"><a>K-Planes</a></li>
+          </ul>
+        </div>
+        <br>
+        <div class="text-center">
+          <div class="video-container">
+            <video class="video" style="max-width: 100%;" id="compVideo1" loop playsinline autoplay muted>
+              <source src="static/videos/comparison/dnerf_trex_TiNeuVox_vs_ours.mp4">
+            </video>
+            
+          </div>
+                    
+
+          <div class="pill-row scene-pills" id="scene-pill-syns">
+            <span class="pill scene-pill-syn active" data-value="dnerf_trex" onclick="selectCompVideo(activeMethodPill_syn, this)">
+              <img class="thumbnail-img" src="static/thumbnails/trex.png" alt="trex" width="64">
+            </span>
+            <span class="pill scene-pill-syn" data-value="dnerf_hook" onclick="selectCompVideo(activeMethodPill_syn, this)">
+              <img class="thumbnail-img" src="static/thumbnails/hook.png" alt="hook" width="64">
+            </span>
+            <span class="pill scene-pill-syn" data-value="dnerf_mutant" onclick="selectCompVideo(activeMethodPill_syn, this)">
+              <img class="thumbnail-img" src="static/thumbnails/mutant.png" alt="mutant" width="64">
+            </span>
+            <span class="pill scene-pill-syn" data-value="dnerf_standup" onclick="selectCompVideo(activeMethodPill_syn, this)">
+              <img class="thumbnail-img" src="static/thumbnails/standup.png" alt="standup" width="64">
+            </span>
+          </div>
+	  <br>
+          <p class="text-justify" style="text-align: center;">
+            Baseline method (left) vs GauFRe (right). Click to select different methods and scenes. <br>
+	    Video results on novel views along with depth for our method are shown below.
+          </p>
+	  <br>
+          <script>
+          activeMethodPill_syn = document.querySelector('.method-pill-syn.active');
+          activeScenePill_syn = document.querySelector('.scene-pill-syn.active');
+          </script>
+
+	  <div style="display:inline-block;">
+	  <div class="video-compare-container" id="materialsDiv1">
+            <video class="video" id="dnerfextraVideoRot" loop playsinline autoPlay muted src="static/videos/dnerfextra/dnerf_trex_rotate.mp4" onplay="resizeAndPlay(this)"></video>
+            <canvas height=0 class="videoMerge" id="dnerfextraVideoRotMerge"></canvas>
+          </div>
+	  </div>
+	  &nbsp &nbsp &nbsp &nbsp &nbsp
+	  <div style="display:inline-block;">
+	  <div class="video-compare-container" id="materialsDiv0">
+            <video class="video" height="320" id="dnerfextraVideoFix" loop playsinline autoPlay muted src="static/videos/dnerfextra/dnerf_trex_fix.mp4" onplay="resizeAndPlay(this)"></video>
+            <canvas height=0 class="videoMerge" id="dnerfextraVideoFixMerge"></canvas>
+          </div>
+	  </div>
+
+	  <div>
+	    <p class="text-justify" style="text-align: center;">
+	      Our forward-warping deformation field design allows explicitly motion modeling.<br> Below we plot the trajectories of a subset of Gaussians.
+          </p>
+
+          <div class="video-container">
+    <video class="video" style="max-width: 100%;" id="dnerfextraVideoTrack" loop playsinline autoplay muted src="static/videos/dnerfextra/dnerf_trex_track.mp4">
+          </div>
+	  </div>
+	  
+	  <br>
+	  <br>
+	  <br>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <!-- <div class="row text-center" style="background-color:rgb(255, 255, 255);">
+      <div class="col-md-8 col-md-offset-2">
+        <h3> Method Ablations </h3><br>
+	
+        <div class="text-center ">
+          <ul class="nav nav-pills center-pills">
+            <li class="method-pill-abl active" data-value="bell_nostat"
+                onclick="selectCompVideo(this)"><a>No Static Gaussians</a></li>
+            <li class="method-pill-abl" data-value="bell_nowarm"
+                onclick="selectCompVideo(this)"><a>No IB Init</a></li>
+            <li class="method-pill-abl" data-value="cup_noqua"
+                onclick="selectCompVideo(this)"><a>Quaternion Addition</a></li>
+            <li class="method-pill-abl" data-value="cup_offopa"
+                onclick="selectCompVideo(this)"><a>Deform Opacity</a></li>
+            <li class="method-pill-abl" data-value="cup_offsh"
+                onclick="selectCompVideo(this)"><a>Deform SH</a></li>
+            <li class="method-pill-abl" data-value="cup_nooffscale"
+                onclick="selectCompVideo(this)"><a>Fix Scale</a></li>
+          </ul>
+        </div>
+	
+	<br>
+	
+        <div class="video-compare-container" id="materialsDiv">
+          <video class="video" id="ablVideo" loop playsinline autoPlay muted src="static/videos/ablation/bell_nostat_vs_ours.mp4" onplay="resizeAndPlay(this)"></video>
+          <canvas height=0 class="videoMerge" id="ablVideoMerge"></canvas>
+          <br>
+	  <br>
+          <p class="text-justify" style="text-align: center;">
+            Please move the slider to view the ablated variant (left) overlayed on GauFRe (right).
+          </p>
+          <br>
+          <script>
+          activeMethodPill_abl = document.querySelector('.method-pill-abl.active');
+          </script>
+        </div>
+        
+      </div>
+    </div>
+    <br><br> -->
+
+
+    <!-- <div class="row" style="background-color:rgb(255, 255, 255);">
+      <div class="col-md-8 col-md-offset-2">
+        <h3> 
+        </h3>
+        <div class="form-group col-md-10 col-md-offset-1" style="color:white">
+          <textarea id="bibtex" class="form-control" readonly >
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center" style="background-color:rgb(50, 50, 50); color:white">
+      <div class="col-md-8 col-md-offset-2">
+        <h3> LaVR </h3><br>
+      </div>
+    </div> -->
+	
+
+  </div>
+  <div class="container" style="max-width: 1200px; margin: 60px auto 40px auto;">
+    <hr style="border: none; border-top: 1px solid #d9d9d9; margin-bottom: 24px;">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3 style="margin-bottom: 16px; font-size: 24px; font-weight: 500;">Acknowledgements</h3>
+        <p style="font-size: 16px; line-height: 1.8; color: #555; margin: 0 auto; max-width: 1000px;">
+          Many thanks to <b>ReCamMaster</b>, <b>TrajectoryCrafter</b>, <b>V-DPM</b>, <b>VGGT</b>, and <b>SeaThru-NeRF</b> for their great code.
+        </p>
+      </div>
+    </div>
+  </div>
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
